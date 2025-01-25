@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-app = FastAPI()
+app = FastAPI(title='A FastAPI Service on Google Cloud Run')
 
 
 @app.get("/", tags=["root"])

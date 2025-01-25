@@ -15,4 +15,4 @@ COPY src/ src/
 # Expose app's port
 EXPOSE 8080
 # Run the FastAPI application using uvicorn server
-CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "80"]
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8080"]

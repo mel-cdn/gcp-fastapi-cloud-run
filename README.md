@@ -2,7 +2,7 @@
 
 Little project to explore a FastAPI deployment on Google Cloud Project.
 
-On this project, we will deploy a dockerized FastAPI application to Cloud Run.
+On this project, we will deploy a Dockerized FastAPI application to Cloud Run.
 
 ## Requirements
 1. Install [Python](https://www.python.org/)
@@ -42,7 +42,7 @@ $ gcloud config set project <YOUR-GCP-ID>
 Updated property [core/project].
 ```
 
-## Deploy Docker image to Cloud Run
+## Deploy Docker image to Artifact Registry
 ```bash
 # Setup configs
 PROJECT_ID=<YOUR-GCP-ID>
@@ -76,7 +76,31 @@ f5fe472da253: Pushed
 latest: digest: sha256:d8d93db647006208e47423ee8cf8477b4b95b1f440256ad3517334765e2d6847 size: 1991
 ```
 At this point, you may take a look on Google Cloud Console to see the deployed image.
-    <details>
-    <summary>Docker image in Artifact Registry (click to view)</summary>
-    ![Docker image in Artifact Registry](images/demo-fastapi-gcp-ar.png)
-    </details>
+![Docker image in Artifact Registry](images/demo-fastapi-gcp-ar.png)
+
+
+## Deploy Docker image to Cloud Run
+
+```bash
+# Using the same configs on previous step...
+
+# Deploy the image to Cloud Run
+$ gcloud run deploy demo-fastapi-service \
+ --image $TAG/$PROJECT_ID/$DOCKER_REPO/$DOCKER_IMAGE \
+ --region $REGION \
+ --allow-unauthenticated
+ 
+✓ Deploying... Done.                                                                                                                                                                                                               
+  ✓ Creating Revision...                                                                                                                                                                                                           
+  ✓ Routing traffic...                                                                                                                                                                                                             
+  ✓ Setting IAM Policy...                                                                                                                                                                                                          
+Done.                                                                                                                                                                                                                              
+Service [demo-fastapi-service] revision [demo-fastapi-service-00001-9mg] has been deployed and is serving 100 percent of traffic.
+Service URL: https://demo-fastapi-service-<SERVICE_ID>.asia-southeast1.run.app
+
+# Test the deployed service!
+$ curl https://demo-fastapi-service-376861294696.asia-southeast1.run.app
+{"message":"Hello from GCP!"}
+```
+You can also access the FastAPI Swagger UI at https://demo-fastapi-service-<SERVICE_ID>.asia-southeast1.run.app/docs
+![FastAPI Swagger](images/demo-fastapi-swagger.png)
