@@ -21,11 +21,11 @@ $ cd gcp-fastapi-cloud-run
 $ docker build -t fastapi-docker .
 
 # Run the container
-$ docker run -p 8000:80 fastapi-docker
+$ docker run -p 8000:8080 fastapi-docker
 INFO:     Started server process [1]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
-INFO:     Uvicorn running on http://0.0.0.0:80 (Press CTRL+C to quit)
+INFO:     Uvicorn running on http://0.0.0.0:8080 (Press CTRL+C to quit)
 
 # Open a new terminal and test if the FastAPI app works!
 $ curl http://localhost:8000
